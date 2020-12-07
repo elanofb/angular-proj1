@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete {{data.restriction.commodity}}?</h1>
+<div mat-dialog-content class="mat-typography">
+  <p>Are you sure about deleting it? This action is irreversible.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="data.restriction" cdkFocusInitial>Yes, delete</button>
+</div>

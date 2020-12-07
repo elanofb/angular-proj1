@@ -1,0 +1,58 @@
+<div class="row">
+  <button type="button" mat-raised-button color="accent" [routerLink]="[formUrl]" *ngIf="hasAddButton">
+    Add
+  </button>
+  <button mat-raised-button color="accent" (click)="export()">Export</button>
+</div>
+
+<div id="table-filters">
+  <mat-form-field *ngFor="let filter of filters" class="default-table-filter" [style.width]="(filter.width - 2) + '%'">
+    <input
+      matInput
+      [(ngModel)]="filter.value"
+      [name]="filter.fieldName"
+      [placeholder]="filter.placeHolder"
+      (keyup)="applyFilter()"
+    />
+  </mat-form-field>
+</div>
+
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z1"
+  matSort
+  [matSortActive]="filters[0].fieldName"
+  matSortDirection="asc"
+>
+  <!-- Columns headers -->
+  <ng-container *ngFor="let filter of filters" [matColumnDef]="filter.fieldName" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width]="filter.width + '%'">{{ filter.placeHolder }}</th>
+    <td mat-cell *matCellDef="let obj">
+      {{ obj[filter.fieldName] && obj[filter.fieldName].hasOwnProperty('name') ? obj[filter.fieldName].name : obj[filter.fieldName] }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let obj">
+      <button
+        mat-icon-button
+        color="primary"
+        matTooltip="Edit"
+        [routerLink]="[formUrl, obj.id]"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  class="mat-elevation-z1"
+  [pageSizeOptions]="[5]"
+  showFirstLastButtons
+></mat-paginator>

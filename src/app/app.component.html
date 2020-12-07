@@ -1,0 +1,14 @@
+<div class="example-container">
+  <hsdg-toolbar [sidenav]="sidenav" [menu]="menu"></hsdg-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" autosize>
+    <mat-sidenav #sidenav class="mat-elevation-z8 example-sidenav" opened mode="side">
+      <hsdg-menu #menu [componentCssClass]="componentCssClass"></hsdg-menu>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

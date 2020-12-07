@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{ data.editMode ? "Edit" : "New" }} restriction</h1>
+<form [formGroup]="newRestrictionForm" class="item-form">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Commodity</mat-label>
+      <input required type="text" placeholder="Start typing" aria-label="Commodity" matInput
+        [matAutocomplete]="autoCmplCommodity" formControlName="commodity"
+        (keyup)="applyCommoditiesFilter($event.target.value)" />
+      <button mat-button *ngIf="selectedCommodity" matSuffix mat-icon-button aria-label="Clear"
+        (click)="clearCommoditySelection()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-autocomplete #autoCmplCommodity="matAutocomplete">
+        <mat-option *ngFor="let commodity of filteredCommodities | async" [value]="commodity.commodity"
+          (click)="selectCommodity(commodity)">
+          {{ commodity.commodity }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-progress-bar *ngIf="loadingCommodities && !errorLoadingCommodities" mode="query"></mat-progress-bar>
+      <small *ngIf="commodityNotFound"><strong>No commodities found with that name.</strong></small>
+      <small *ngIf="errorLoadingCommodities">
+        <mat-icon>warning</mat-icon>
+        <strong>An error ocurred while loading commodities. Please try again
+          later.</strong>
+      </small>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Remarks</mat-label>
+      <textarea formControlName="remarks" matInput required placeholder="Please input"></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button [mat-dialog-close]="">Cancel</button>
+    <button mat-button (click)="onSubmit()" type="submit" [disabled]="!newRestrictionForm.valid" mat-raised-button
+      color="primary">
+      {{ data.editMode ? "Save" : "Add" }}
+    </button>
+  </div>
+</form>

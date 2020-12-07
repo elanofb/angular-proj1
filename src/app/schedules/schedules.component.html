@@ -1,0 +1,90 @@
+<div class="default-padding">
+  <h1 class="mat-h1">Vessel Schedules and Daily Positions</h1>
+
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-tile [colspan]="1" [rowspan]="3">
+      <mat-card class="dashboard-card small-card">
+        <mat-card-header>
+          <mat-card-title>
+            Schedules
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="dashboard-card-content">
+          <table
+            mat-table
+            [dataSource]="scheduleDataSource"
+            multiTemplateDataRows
+          >
+            <ng-container
+              matColumnDef="{{ column }}"
+              *ngFor="let column of scheduleColumnsToDisplay"
+            >
+              <th mat-header-cell *matHeaderCellDef>Trade Name</th>
+              <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+            </ng-container>
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+              <td
+                mat-cell
+                *matCellDef="let element"
+                [attr.colspan]="scheduleColumnsToDisplay.length"
+              >
+                <div
+                  class="example-element-detail"
+                  [@detailExpand]="
+                    element == scheduleExpandedElement
+                      ? 'expanded'
+                      : 'collapsed'
+                  "
+                >
+                  <mat-nav-list style="width: 100%">
+                    <a mat-list-item href="{{ schedule.downloadLink }}" *ngFor="let schedule of element.schedules">
+                      <mat-icon >save_alt</mat-icon> <span class="schedule-name">{{ schedule.name }}</span>
+                    </a>
+                  </mat-nav-list>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="scheduleColumnsToDisplay"></tr>
+            <tr
+              mat-row
+              *matRowDef="let element; columns: scheduleColumnsToDisplay"
+              class="example-element-row"
+              [class.example-expanded-row]="scheduleExpandedElement === element"
+              (click)="
+                scheduleExpandedElement =
+                  scheduleExpandedElement === element ? null : element
+              "
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: ['expandedDetail']"
+              class="example-detail-row"
+            ></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card small-card">
+        <mat-card-header>
+          <mat-card-title>
+            Daily Position
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="dashboard-card-content">
+            <mat-nav-list>
+                <a mat-list-item href="{{ daily.downloadLink }}" *ngFor="let daily of dailyPositionDataSource">
+                  <mat-icon >save_alt</mat-icon> <span class="schedule-name">{{ daily.name }}</span>
+                </a>
+              </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

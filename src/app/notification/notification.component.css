@@ -1,0 +1,17 @@
+.page-content {
+  width: 80%;
+}
+
+mat-form-field {
+  margin-top: 20px;
+  margin-right: 2%;
+}
+
+.upper{
+  text-transform: uppercase;
+}
+
+.broke-line{
+  max-width: 216px;
+  word-break: break-word;
+}

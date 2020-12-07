@@ -1,0 +1,14 @@
+.page-content {
+  width: 60%;
+}
+
+
+
+mat-form-field {
+  margin-right: 2%;
+}
+
+.broke-line{
+  max-width: 216px;
+  word-break: break-word;
+}

@@ -1,0 +1,11 @@
+form * {
+  width: 100%;
+}
+
+form textarea {
+  min-height: 200px;
+}
+
+.upper{
+  text-transform: uppercase;
+}

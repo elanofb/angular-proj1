@@ -1,0 +1,71 @@
+{
+  "name": "booking-creation-guide-frontend",
+  "version": "1.4.25",
+  "config": {
+    "imageRepo": "docker-images.sao.hamburgsud.com",
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --host 0.0.0.0",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "docker:build": "echo Building image && docker image build . -t $npm_package_config_imageRepo/$npm_package_name:$npm_package_version",
+    "docker:publish": "echo Publishing image && npm run docker:build && docker image push $npm_package_config_imageRepo/$npm_package_name:$npm_package_version",
+    "docker:deploy": "echo Deploying into docker repository && npm run docker:publish"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^9.0.4",
+    "@angular/cdk": "^9.1.0",
+    "@angular/common": "^9.0.4",
+    "@angular/compiler": "^9.0.4",
+    "@angular/core": "^9.0.4",
+    "@angular/flex-layout": "^9.0.0-beta.31",
+    "@angular/forms": "^9.0.4",
+    "@angular/http": "^7.2.16",
+    "@angular/material": "^9.1.0",
+    "@angular/platform-browser": "^9.0.4",
+    "@angular/platform-browser-dynamic": "^9.0.4",
+    "@angular/router": "^9.0.4",
+    "@internal-apps/hsdg-front-lib": "3.0.0",
+    "angular4-hal": "^7.9.1",
+    "classlist.js": "^1.1.20150312",
+    "core-js": "^2.5.4",
+    "file-saver": "^2.0.0-rc.4",
+    "keycloak-js": "^8.0.1",
+    "ngx-cookie-service": "^2.3.0",
+    "node-sass": "^4.13.0",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "web-animations-js": "^2.3.2",
+    "xlsx": "^0.15.4",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.900.4",
+    "@angular/cli": "^9.0.4",
+    "@angular/compiler-cli": "^9.0.4",
+    "@angular/language-service": "^9.0.4",
+    "@types/jasmine": "^3.5.0",
+    "@types/jasminewd2": "^2.0.8",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "cz-conventional-changelog": "^3.0.2",
+    "jasmine-core": "^3.5.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage-istanbul-reporter": "^2.1.1",
+    "karma-jasmine": "^3.0.3",
+    "karma-jasmine-html-reporter": "^1.5.1",
+    "protractor": "^5.4.2",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "typescript": "~3.7.5"
+  }
+}

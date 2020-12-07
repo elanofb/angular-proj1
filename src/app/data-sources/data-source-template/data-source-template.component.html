@@ -1,0 +1,21 @@
+<p [hidden]="hasMandatoryFilters()" style="text-align: center;">{{dataSourceObject.missingFilterMessage}}</p>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div [hidden]="!hasMandatoryFilters()">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container *ngFor="let item of dataSourceObject.displayedColumns; let i = index" [matColumnDef]="item" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ dataSourceObject.columnsName[i] }} </th>
+      <td class="space-max" mat-cell *matCellDef="let element"> {{ transformBool(extractCellText(element, item))  }} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="dataSourceObject.displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataSourceObject.displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [pageSizeOptions]="[5,10,20]" [length]="tableLength" showFirstLastButtons></mat-paginator>
+</div>
+
+

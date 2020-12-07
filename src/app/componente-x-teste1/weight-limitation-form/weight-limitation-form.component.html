@@ -1,0 +1,43 @@
+<h1 class="mat-h1" mat-dialog-title>Weight Limitation</h1>
+
+<div mat-dialog-content>
+  <form class="form-container" [formGroup]="form">
+   
+    <mat-form-field appearance="outline">
+      <mat-label>State Destination</mat-label>      
+      <input type="text" placeholder="State Destination" matInput formControlName="stateDestination">      
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="outline">
+      <mat-label>POD</mat-label>      
+      <input type="text" placeholder="POD" matInput formControlName="pod">     
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Country</mat-label>      
+      <input type="text" placeholder="Country" matInput formControlName="country">     
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mode</mat-label>      
+      <input type="text" placeholder="Mode" matInput formControlName="mode">     
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Limit</mat-label>      
+      <textarea matInput formControlName="limit"></textarea>     
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Remarks</mat-label>
+      <textarea matInput formControlName="remarks"></textarea>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-stroked-button mat-dialog-close style="width:100px;">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="form.getRawValue()" cdkFocusInitial color="accent" [disabled]="!form.valid" style="width:100px;">Save</button>
+</div>

@@ -1,0 +1,225 @@
+<div fxLayout="row" fxLayoutAlign="start start" style="height: 100%;">
+
+  <div fxFlex="70" class="home-padding">
+    <div class="page-title">
+      <h1 class="mat-h1" color="primary">Home</h1>
+    </div>
+
+    <mat-card class="page-content">
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+
+        <div fxFlex="80"  fxFlex.lt-xl="100" fxLayout="row wrap" fxLayoutAlign="start center">
+          <mat-form-field fxFlex fxFlex.lt-xl="50" *ngFor="let filter of filtersService.filters" style="padding-right: 10px;">
+            <mat-label>{{filter.placeHolder}}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="filter.value"
+              [name]="filter.fieldName"
+              [placeholder]="filter.placeHolder"
+              (keyup.enter)="applyFilters()"
+              autocomplete="off"
+              [matTooltip]="filter.tooltip"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <button mat-stroked-button (click)="clearFilters()" fxFlex="50">Clear</button>
+          <button mat-flat-button color="primary" (click)="applyFilters()" fxFlex="50">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+
+        <div class="infos">
+          <mat-accordion multi="true">
+            <mat-expansion-panel *ngFor="let dataSource of dataSources" [disabled]="!dataSource.hasData && !inCleanState"
+              [expanded]="dataSource.hasData && !inCleanState">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon class="icon-warning-not-found" *ngIf="!dataSource.hasData && !inCleanState">error_outline
+                  </mat-icon>
+                  {{ dataSource.dataSourceName }} (<a [href]="dataSource.dataSourceUrl" target="_BLANK">source</a>)
+                  <a *ngIf="!dataSource.hasData && !inCleanState">
+                    <strong class="no-result-text">No results found!</strong>
+                  </a>
+                </mat-panel-title>
+                <mat-panel-description *ngIf="dataSource.hasLastUpdated && dataSource.processDate != todayDate">
+                  <strong class="warning">Excel loading failed!</strong>
+                  <mat-icon class="warning"
+                    matTooltip="Last extraction date: {{ dataSource.lastUpdate }}. Contact Service Desk."
+                    matTooltipPosition="above">warning</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <app-data-source-template [dataSourceObject]="dataSource"></app-data-source-template>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [disabled]="!crif.hasData && !inCleanState" [expanded]="crif.hasData && !inCleanState">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon class="icon-warning-not-found" *ngIf="!crif.hasData && !inCleanState">error_outline</mat-icon>
+                  {{ crif.dataSourceName }} (<a [href]="crif.dataSourceUrl" target="_BLANK">source</a>)
+                  <a *ngIf="!crif.hasData && !inCleanState">
+                    <strong class="no-result-text">No results found!</strong>
+                  </a>
+                </mat-panel-title>
+                <mat-panel-description class="warning" *ngIf="crif.hasLastUpdated && crif.processDate != todayDate">
+                  <strong class="warning">Excel loading failed!</strong>
+                  <mat-icon class="warning" matTooltip="Last extraction date: {{ crif.lastUpdate }}. Contact Service Desk."
+                    matTooltipPosition="above">warning</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <ng-template matExpansionPanelContent>
+                <app-crif [dataSourceObject]="crif"></app-crif>
+              </ng-template>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [disabled]="!ftimeDetention.hasData && !inCleanState"
+              [expanded]="ftimeDetention.hasData && !inCleanState">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon class="icon-warning-not-found" *ngIf="!ftimeDetention.hasData && !inCleanState">error_outline
+                  </mat-icon>
+                  {{ ftimeDetention.dataSourceName }} (<a [href]="ftimeDetention.dataSourceUrl" target="_BLANK">source</a>)
+                  <a *ngIf="!ftimeDetention.hasData && !inCleanState">
+                    <strong class="no-result-text">No results found!</strong>
+                  </a>
+                </mat-panel-title>
+                <mat-panel-description class="warning"
+                  *ngIf="ftimeDetention.hasLastUpdated && ftimeDetention.processDate != todayDate">
+                  <strong class="warning">Excel loading failed!</strong>
+                  <mat-icon class="warning"
+                    matTooltip="Last extraction date: {{ ftimeDetention.lastUpdate }}. Contact Service Desk."
+                    matTooltipPosition="above">warning</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <ng-template matExpansionPanelContent>
+                <app-free-time-detention [dataSourceObject]="ftimeDetention"></app-free-time-detention>
+              </ng-template>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+    </mat-card>
+  </div>
+
+  <div class="notification" fxFlex fxFlexAlign="stretch" >
+    <span class="mat-h2">Notifications</span>
+    <button mat-icon-button #trigger="matMenuTrigger" [matMenuTriggerFor]="filterMenu" aria-label="Filter notifications">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+    <mat-divider></mat-divider>
+    <mat-menu #filterMenu="matMenu" [hasBackdrop]="false">
+      <div class="form-container" [formGroup]="notificationFilterForm" (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()">
+        <mat-grid-list class="h2-line" cols="2" rowHeight="3:1">
+          <mat-grid-tile>
+            <h2 class="mat-h2 filter-title">Filter</h2>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <button mat-icon-button aria-label="Close notifications" class="close-button" (click)="trigger.closeMenu()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <!-- <mat-divider></mat-divider> -->
+        <mat-form-field appearance="outline">
+          <mat-label>Service Center</mat-label>
+          <mat-select formControlName="serviceCenter">
+            <mat-option value="">All</mat-option>
+            <div *ngIf="showCardsCondition == 'BRASIL'">
+              <mat-option value="SSC">Santos Service Center</mat-option>
+              <mat-option value="ISC">Itajaí Service Center</mat-option>
+            </div>
+            <div *ngIf="showCardsCondition == 'PLATE'">
+              <mat-option value="BUE">Buenos Aires</mat-option>
+              <mat-option value="MVD">Montevideo</mat-option>
+              <mat-option value="ASU">Asunción</mat-option>
+            </div>
+            <div *ngIf="showCardsCondition == 'ALL_ACCESS_COUNTRY'">
+              <mat-option value="SSC">Santos Service Center</mat-option>
+              <mat-option value="ISC">Itajaí Service Center</mat-option>
+              <mat-option value="BUE">Buenos Aires</mat-option>
+              <mat-option value="MVD">Montevideo</mat-option>
+              <mat-option value="ASU">Asunción</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>POL</mat-label>
+          <mat-select placeholder="POL" formControlName="pol" multiple>
+            <mat-select-trigger>
+              {{this.notificationFilterForm.controls['pol'].value ? this.notificationFilterForm.controls['pol'].value[0] : ''}}
+              <span *ngIf="this.notificationFilterForm.controls['pol'].value?.length > 1"
+                class="example-additional-selection">
+                (+{{this.notificationFilterForm.controls['pol'].value?.length - 1}}
+                {{this.notificationFilterForm.controls['pol'].value?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let itm of polList" [value]="itm">{{itm}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>POD</mat-label>
+          <mat-select placeholder="POL" formControlName="pod" multiple>
+            <mat-select-trigger>
+              {{this.notificationFilterForm.controls['pod'].value ? this.notificationFilterForm.controls['pod'].value[0] : ''}}
+              <span *ngIf="this.notificationFilterForm.controls['pod'].value?.length > 1"
+                class="example-additional-selection">
+                (+{{this.notificationFilterForm.controls['pod'].value?.length - 1}}
+                {{this.notificationFilterForm.controls['pod'].value?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let itm of podList" [value]="itm">{{itm}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Trade</mat-label>
+          <mat-select placeholder="Trade" formControlName="trade" multiple>
+            <mat-select-trigger>
+              {{this.notificationFilterForm.controls['trade'].value ? this.notificationFilterForm.controls['trade'].value[0] : ''}}
+              <span *ngIf="this.notificationFilterForm.controls['trade'].value?.length > 1"
+                class="example-additional-selection">
+                (+{{this.notificationFilterForm.controls['trade'].value?.length - 1}}
+                {{this.notificationFilterForm.controls['trade'].value?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let itm of tradeList" [value]="itm">{{itm}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <span>
+          <button mat-stroked-button (click)="clearNotificationFilter()">
+            Clear</button>&nbsp;
+          <button mat-raised-button cdkFocusInitial color="accent" type="submit" (click)="submitNotificationFilter()">
+            Apply
+          </button>
+        </span>
+      </div>
+    </mat-menu>
+    <div class="notification-card">
+      <mat-card style="margin-bottom: 15px" *ngFor="let itm of notifications">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon>chat_bubble_outline</mat-icon>
+          </div>
+          <mat-card-title>{{ itm.serviceCenter }} | Trade: {{ itm.trade }}</mat-card-title>
+          <mat-card-subtitle>POL: {{ itm.pol }} | POD : {{ itm.pod }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ itm.message }}</p>
+        </mat-card-content>
+        <mat-card-footer>
+          <span *ngIf="!itm.updateDate">Inserted on: {{ itm.createDate }}</span>
+          &nbsp;
+          <span *ngIf="itm.updateDate">Updated on: {{ itm.updateDate }}</span>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+
+</div>

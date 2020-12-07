@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~@angular/material/prebuilt-themes/purple-green.css"; */
+
+body {
+  font-family: Spinnaker, Arial, sans-serif;
+  margin: 0;
+  color: #646567;
+}
+
+.page-title > .mat-h1 {
+  border-bottom: 1px solid #CCC;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.page-content {
+  margin: 20px auto;
+}
+
+.page-content table {
+  width: 100%;
+}
+
+.filters {
+  margin-top: 20px;
+}
+
+.basic-container {
+  padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.user-menu button {
+  line-height: initial;
+  height: initial;
+}
+
+.mat-slide-toggle-content {
+  font-family: Spinnaker, Arial, sans-serif;
+  font-size: 16px;
+  color: white;
+}
+
+/* Snackbar text center */
+.snack-bar-alert {
+  text-align: center;
+}
+
+.mat-simple-snackbar {
+  display: block !important;
+}
+/**/
+
+.row button {
+  margin-right: 10px;
+}
+
+div[mat-dialog-actions]{
+  width: 100%;
+}
+
+div[mat-dialog-actions] button{
+  margin: 10px 1%;
+  padding: 0px;
+  width: 48%;
+}
+
+div[mat-dialog-content] {
+  text-align: center;
+}

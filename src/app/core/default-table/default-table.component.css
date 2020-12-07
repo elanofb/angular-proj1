@@ -1,0 +1,25 @@
+.row {
+  margin-left: 1%;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+  padding-left: 1%;
+}
+
+table td {
+  padding: 0px 1%;
+}
+
+mat-form-field {
+  margin-top: 20px;
+  margin-right: 2%;
+}
+
+
+#table-filters mat-form-field:first-child {
+  margin-left: 1%;
+}

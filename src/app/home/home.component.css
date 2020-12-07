@@ -1,0 +1,183 @@
+mat-panel-description {
+  display: inline;
+  text-align: right;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #01579b;
+  text-decoration: none;
+}
+
+mat-accordion {
+  margin: 10px;
+}
+
+.row {
+  margin-left: 1%;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+  padding-left: 1%;
+}
+
+table td {
+  padding: 0px 1%;
+}
+
+/* mat-form-field {
+  margin-top: 20px;
+  margin-right: 2%;
+} */
+/*
+.default-table-filter {
+  margin-top: 20px;
+  margin-right: 2%;
+} */
+
+/* #table-filters mat-form-field:first-child {
+  margin-left: 1%;
+}
+*/
+.filters > button {
+  height: fit-content;
+}
+
+.no-result-text {
+  color: indianred;
+  margin-left: 10px;
+}
+
+.icon-warning-not-found {
+  /* color: indianred; */
+  margin-right: 10px;
+}
+
+ .notification {
+  background: white;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 100%;
+  overflow-y: auto;
+ }
+
+
+.notification-card {
+  position: initial;
+  text-align: right;
+  padding: 5px;
+}
+
+.form-container {
+  width: 75%;
+  padding-left: 10%;
+  margin: 15px;
+  margin-top: 0px;
+}
+
+.form-container > * {
+  width: 100%;
+}
+
+.h2-line {
+  border-bottom: 1px solid #CCC;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.filter-title {
+  float: left;
+  margin: 0px;
+  width: 100%
+}
+
+mat-grid-tile > * {
+  width: 100%;
+}
+
+.close-button {
+  right: 0;
+  position: absolute;
+}
+
+
+div.mat-menu-content div.form-container  mat-form-field {
+  margin-bottom: 0px;
+    margin-top: 9px;
+    padding-bottom: 0px;
+}
+
+div.form-container mat-form-field-wrapper{
+  padding-bottom: 0px;
+}
+
+div.form-container span button{
+  width: 47%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 5px;
+}
+
+mat-card-footer span{
+  font-size: 12px;
+}
+
+mat-card-header{
+  text-align: left
+}
+
+mat-card-header mat-card-title{
+  font-size: 17px
+}
+
+
+mat-card-content p{
+  text-align: justify;
+  font-size: 13px;
+  white-space: pre-wrap;      /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap;     /* Opera <7 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  word-wrap: break-word;      /* IE */
+}
+
+.material-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.warning {
+  color: indianred;
+}
+
+.infos {
+  padding-left: 2px;
+  padding-right: 10px;
+}
+
+.home-padding {
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-right: 30px;
+  overflow-y: auto;
+  height: 100%;
+}
